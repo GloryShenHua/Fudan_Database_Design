@@ -70,8 +70,12 @@ public class DbInitService {
                 boolean isFirstLine = true;
 
                 while ((line = br.readLine()) != null) {
+                    // 跳过空行或只含有空白字符的行
+                    if (line.trim().isEmpty()) {
+                        continue;
+                    }
+
                     // 简易切分：用逗号分割
-                    // 如果 CSV 中有引号、转义等复杂情况，建议使用 OpenCSV 或 Commons CSV
                     String[] columns = line.split(",");
 
                     if (isFirstLine) {
@@ -79,7 +83,12 @@ public class DbInitService {
                         headers = columns;
                         isFirstLine = false;
                     } else {
-                        rows.add(columns);
+                        // 只在列数与表头一致时才添加行
+                        if (columns.length == headers.length) {
+                            rows.add(columns);
+                        } else {
+                            System.out.println("跳过无效行（列数不匹配）: " + line);
+                        }
                     }
                 }
             }
@@ -87,11 +96,14 @@ public class DbInitService {
             // 2) 动态生成并执行 INSERT 语句
             if (headers != null && headers.length > 0 && !rows.isEmpty()) {
                 insertRowsIntoTable(tableName, headers, rows);
+            } else {
+                System.out.println("没有有效数据可插入");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     /**
      * 通过表头与数据，动态构造并执行 INSERT 语句
@@ -133,3 +145,5 @@ public class DbInitService {
         System.out.println("插入完成: " + tableName + "，共插入 " + rows.size() + " 条记录");
     }
 }
+
+

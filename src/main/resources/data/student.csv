@@ -1,4 +1,6 @@
-id,name,age
-1,Alice,20
-2,Bob,21
-3,Chris,19
+ID,name,dept_name,tot_cred
+1,Alice,Computer Science,120
+2,Bob,Mathematics,110
+3,Chris,Physics,100
+4,David,Computer Science,130
+5,Eve,Mathematics,125

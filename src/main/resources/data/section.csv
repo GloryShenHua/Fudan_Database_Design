@@ -1,0 +1,7 @@
+course_id,sec_id,semester,year,building,room_number,time_slot_id
+1,1,Fall,2023,Engineering Building,101,1
+2,1,Fall,2023,Math Building,201,2
+3,1,Fall,2023,Science Building,301,3
+4,1,Fall,2023,Engineering Building,102,4
+5,1,Fall,2023,Math Building,202,5
+
